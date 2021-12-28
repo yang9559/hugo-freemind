@@ -1,0 +1,13 @@
+{{ define "main" }}
+<p class="text-center text-2xl py-10">{{ .Title }}</p>
+<div class="flex flex-wrap">
+    {{ range .Data.Terms.Alphabetical }}
+        <a class='m-2 py-1 px-2 rounded-md {{ $.Scratch.Get "tagBgColor" }}' href="{{ .Page.RelPermalink }}">{{ .Page.Title }}<span class="text-sm align-top">{{ .Count }}</span></a>
+    {{ end }}
+    {{ if not .Data.Terms.Alphabetical }}
+        {{ range .Pages }}
+            <a class='m-2 py-1 px-2 rounded-md {{ $.Scratch.Get "tagBgColor" }}' href="{{ .RelPermalink }}">{{ .Title }}</a>
+        {{ end }}
+    {{ end }}
+</div>
+{{ end }}

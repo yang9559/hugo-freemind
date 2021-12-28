@@ -1,0 +1,54 @@
+{{ define "main" }}
+<div class="flex flex-col">
+    <p class="text-2xl py-10 text-center">{{.Title}}</p>
+    <ul class="flex flex-col">
+        {{ range .Paginator.Pages }}
+        <li class="border-b border-dashed border-gray-400 py-2"><a href="{{ .RelPermalink }}">{{.Date.Format "2006-01-02"}} | {{ .Title
+                }}</a></li>
+        {{ end }}
+    </ul>
+    {{ if gt .Paginator.TotalPages 1}}
+    <div class="flex justify-end mt-10">
+        <div class='w-56 h-8 grid grid-flow-col auto-cols-auto justify-items-stretch content-center rounded-md text-center {{ $.Scratch.Get "textColor" }} {{ $.Scratch.Get "bg2Color" }}'>
+            <a class='{{ $.Scratch.Get "textHoverColor" }}' href="{{ .Paginator.First.URL }}"> &lt;&lt; </a>
+            {{ if .Paginator.HasPrev }}
+            <a class='{{ $.Scratch.Get "textHoverColor" }}' href="{{ .Paginator.Prev.URL }}"> &lt; </a>
+            {{ end }}
+            {{ $current := .Paginator.PageNumber }}
+            {{ if le $current 3 }}
+                {{ range first 5 .Paginator.Pagers }}
+                    {{ if eq .PageNumber $current }}
+                        <a class='{{ $.Scratch.Get "textHoverColor" }} {{ $.Scratch.Get "textColor" }}' href="{{ .URL }}">{{ .PageNumber }}</a>
+                    {{ else }}
+                        <a class='{{ $.Scratch.Get "textHoverColor" }}' href="{{ .URL }}">{{ .PageNumber }}</a>
+                    {{ end }}
+                {{ end }}
+            {{ else if ge .Paginator.PageNumber ( sub .Paginator.TotalPages 2)}}
+                {{ range last 5 .Paginator.Pagers }}
+                    {{ if eq .PageNumber $current }}
+                        <a class='{{ $.Scratch.Get "textHoverColor" }} {{ $.Scratch.Get "textColor" }}' href="{{ .URL }}">{{ .PageNumber }}</a>
+                    {{ else }}
+                        <a class='{{ $.Scratch.Get "textHoverColor" }}' href="{{ .URL }}">{{ .PageNumber }}</a>
+                    {{ end }}
+                {{ end }}
+            {{ else }}
+                {{ $current := .Paginator.PageNumber }}
+                {{ $rangeP := sub $current 2 }}
+                {{ $rangeN := add $current 2 }}
+                {{ range where ( where .Paginator.Pagers "PageNumber" ">=" $rangeP) "PageNumber" "<=" $rangeN }}
+                    {{ if eq .PageNumber $current }}
+                        <a class='{{ $.Scratch.Get "textHoverColor" }} {{ $.Scratch.Get "textColor" }}' href="{{ .URL }}">{{ .PageNumber }}</a>
+                    {{ else }}
+                        <a class='{{ $.Scratch.Get "textHoverColor" }}' href="{{ .URL }}">{{ .PageNumber }}</a>
+                    {{ end }}
+                {{ end }}
+            {{ end }}
+            {{ if .Paginator.HasNext }}
+                <a class='{{ $.Scratch.Get "textHoverColor" }}' href="{{ .Paginator.Next.URL }}"> &gt; </a>
+            {{ end }}
+            <a class='{{ $.Scratch.Get "textHoverColor" }}' href="{{ .Paginator.Last.URL }}"> &gt;&gt; </a>
+        </div>
+    </div>
+    {{ end }}
+</div>
+{{ end }}

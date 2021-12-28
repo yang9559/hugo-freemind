@@ -1,0 +1,51 @@
+<div class="flex justify-between items-center h-16 lg:h-20 px-4 lg:px-72">
+  <a href="{{ .Site.Home.RelPermalink }}" class="text-xl">{{ .Site.Title }}</a>
+  <div class='hidden lg:flex lg:space-x-8 lg:items-center'>
+    {{ $currentPage := . }}
+    {{ range .Site.Menus.main }}
+      <a href="{{ .URL }}"
+        class='text-center p-2 {{ $.Scratch.Get "bgHoverColor" }} {{ $.Scratch.Get "textHoverColor" }} rounded {{ if (or (eq $currentPage.RelPermalink .URL ) (eq $currentPage.Section .Identifier)) }} {{ $.Scratch.Get "bg2Color" }} {{ end }}'>{{
+        .Name }}</a>
+    {{ end }}
+    <div id="fm-dark-button">
+      {{ partial "svg/dark.svg" (dict "class" ($.Scratch.Get "svgClass"))}}
+    </div>
+    <div id="fm-light-button" class="hidden">
+      {{ partial "svg/light.svg" (dict "class" ($.Scratch.Get "svgClass"))}}
+    </div>
+    {{ if .Site.Params.search }}
+      <div id="fm-search-button">
+        {{ partial "svg/search.svg" (dict "class" ($.Scratch.Get "svgClass"))}}
+      </div>
+    {{ end }}
+  </div>
+  <!-- mobile button -->
+  <div class="lg:hidden flex space-x-4 items-center">
+    <div id="fm-mobile-dark-button">
+      {{ partial "svg/dark.svg" (dict "class" ($.Scratch.Get "svgClass"))}}
+    </div>
+    <div id="fm-mobile-light-button" class="hidden">
+      {{ partial "svg/light.svg" (dict "class" ($.Scratch.Get "svgClass"))}}
+    </div>
+    {{ if .Site.Params.search }}
+      <div id="fm-mobile-search-button">
+        {{ partial "svg/search.svg" (dict "class" ($.Scratch.Get "svgClass"))}}
+      </div>
+    {{ end }}
+    <button id="fm-menu-button" type="button" class='inline-flex items-center justify-center' aria-controls="mobile-menu" aria-expanded="true">
+      <span class="sr-only">Open main menu</span>
+      {{ partial "svg/menu.svg" (dict "class" ($.Scratch.Get "svgClass"))}}
+    </button>
+  </div>
+</div>
+<!-- mobile menu -->
+<div class="hidden absolute inset-x-0 top-16 lg:top-20 shadow-md" id="mobile-menu">
+  <div class='flex flex-col w-screen border-y border-slate-300 dark:border-slate-500 {{ $.Scratch.Get "textColor" }} {{ $.Scratch.Get "bgColor" }}'>
+    {{ $currentPage := . }}
+    {{ range .Site.Menus.main }}
+    <a href="{{ .URL }}"
+      class='text-center text-xl p-2 {{ if (or (eq $currentPage.RelPermalink .URL ) (eq $currentPage.Section .Identifier)) }} {{ $.Scratch.Get "bg2Color" }} {{ end }}'>{{
+      .Name }}</a>
+    {{ end }}
+  </div>
+</div>

@@ -1,0 +1,6 @@
+{{ define "main" }}
+<p class="text-2xl py-10 text-center">{{.Title}}</p>
+<div class="prose dark:prose-invert m-auto">
+    {{ .Content | safeHTML }}
+</div>
+{{ end }}

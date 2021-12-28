@@ -1,0 +1,19 @@
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+
+{{ with resources.Get "output/head.min.js" }}
+    <script type="text/javascript" src='{{ .RelPermalink }}'></script>
+{{ end }}
+
+{{ range .Site.Params.customCss }}
+    {{ $styles := resources.Get . }}
+    <link rel="stylesheet" href="{{ $styles.RelPermalink }}">
+{{ end }}
+
+<script>
+    if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark')
+    } else {
+        document.documentElement.classList.remove('dark')
+    }
+</script>

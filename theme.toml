@@ -1,0 +1,11 @@
+name = "Freemind"
+license = "MIT"
+licenselink = "https://github.com/yyycode/hugo-freemind/blob/master/LICENSE"
+description = "A beautiful theme for Hugo."
+homepage = "https://yyycode.github.io/freemind"
+tags = ["responsive"]
+features = ["responsive"]
+min_version = "0.41.0"
+
+[author]
+  name = "Bruce"

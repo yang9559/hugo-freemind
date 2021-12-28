@@ -1,0 +1,12 @@
+<div id="fm-search-backdrop" data-base-url="{{ .Site.BaseURL }}" class="fixed inset-0 hidden w-screen h-screen z-50 backdrop-blur-sm">
+    <div class='lg:w-1/2 lg:m-auto h-64 lg:h-96 m-2 lg:mt-48 px-6 py-2 opacity-90 rounded-xl shadow-2xl {{ $.Scratch.Get "bg2Color" }}'>
+        <div class='flex items-center border-b border-dashed {{ $.Scratch.Get "borderColor" }}'>
+            {{ partial "svg/search.svg" (dict "class" "w-6 h-6 fill-gray-600 dark:fill-gray-300 hover:cursor-pointer")}}
+            <input id="fm-search-input"
+                class="w-full h-12 rounded-md p-4 bg-inherit placeholder-gray-600 dark:placeholder-gray-300 focus:outline-none"
+                type="text" placeholder="Search documentation" />
+        </div>
+        <div id="fm-search-results" data-color='{{ $.Scratch.Get "bgColor" }} {{ $.Scratch.Get "textColor" }}' class="my-2 h-44 md:h-72 overflow-y-scroll">
+        </div>
+    </div>
+</div>

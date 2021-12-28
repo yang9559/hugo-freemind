@@ -1,0 +1,34 @@
+{{ $.Scratch.Set "textColor" (.Site.Params.textColor | default "text-zinc-800 dark:text-zinc-200") }}
+{{ $.Scratch.Set "bgColor" (.Site.Params.bgColor | default "bg-zinc-200 dark:bg-zinc-800") }}
+{{ $.Scratch.Set "bg2Color" (.Site.Params.bg2Color | default "bg-zinc-100 dark:bg-zinc-700") }}
+{{ $.Scratch.Set "tagBgColor" (.Site.Params.tagBgColor | default "bg-zinc-50 dark:bg-zinc-700") }}
+
+{{ $.Scratch.Set "textHoverColor" (.Site.Params.textHoverColor | default "hover:text-zinc-200 dark:hover:text-zinc-800") }}
+{{ $.Scratch.Set "bgHoverColor" (.Site.Params.bgHoverColor | default "hover:bg-zinc-700 dark:hover:bg-zinc-300") }}
+
+{{ $.Scratch.Set "borderColor" (.Site.Params.borderColor | default "border-zinc-800 dark:border-zinc-200") }}
+{{ $.Scratch.Set "svgClass" (.Site.Params.svgClass | default "w-7 h-7 fill-zinc-900 dark:fill-zinc-50 hover:cursor-pointer") }}
+<!DOCTYPE html>
+<html>
+    {{- partial "head.html" . -}}
+    <body class='{{ $.Scratch.Get "textColor"}} {{ $.Scratch.Get "bgColor"}}'>
+        <div class='container relative m-auto'>
+            {{ if .Site.Params.search }}
+                {{- partial "search.html" . -}}
+            {{ end }}
+            <div class='fixed shadow-md inset-x-0 top-0 z-40 {{ $.Scratch.Get "bgColor"}}'>
+                {{- partial "header.html" . -}}
+            </div>
+            <div id="fm-main" class="mt-16 lg:mt-20 px-4 lg:px-72">
+                {{- block "main" . }}{{- end }}
+            </div>
+            {{ if .Site.Copyright }}
+                <div class='fixed inset-x-0 bottom-0 text-sm py-2 text-center {{ $.Scratch.Get "bgColor"}}'>
+                    {{- partial "footer.html" . -}} 
+                </div>
+            {{ end }}
+        </div>
+        {{- block "page_script" . }}{{- end }}
+        {{- partial "script.html" . -}}
+    </body>
+</html>

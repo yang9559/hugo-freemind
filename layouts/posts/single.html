@@ -1,0 +1,63 @@
+{{ define "main" }}
+    <div class="lg:mx-36 space-x-2 py-8">{{ template "breadcrumb" (dict "p" . ) }}</div>
+    <p class="text-2xl text-center pb-14">{{.Title}}</p>
+    <div class="lg:mx-36 mb-6 flex space-x-3">
+        <div class="flex space-x-2 items-center">
+            {{ partial "svg/date.svg" (dict "class" "w-5 h-5 fill-slate-700 dark:fill-slate-300") }}
+            <span class="text-sm">{{ .Lastmod.Format "January 2, 2006" }}</span>
+        </div>
+        {{ range .Params.tags }}
+            <span class='text-sm px-1 py-0.5 rounded {{ $.Scratch.Get "tagBgColor" }}'>{{ . }}</span>
+        {{ end }}
+        {{ range .Params.categories }}
+            <span class='text-sm px-1 py-0.5 rounded {{ $.Scratch.Get "tagBgColor" }}'>{{ . }}</span>
+        {{ end }}
+    </div>
+    <div class="prose m-auto dark:prose-invert">
+        {{ .Content }}
+    </div>
+    <div class="lg:mx-6 mt-6 pt-6 pb-20 flex flex-col lg:flex-row justify-between border-t border-slate-300 dark:border-slate-500 border-dashed">
+        <div>
+            {{ with .Site.RegularPages.Prev . }}
+                <a href="{{ .RelPermalink }}">Prev: {{ .Title }}</a>
+            {{ end }}
+        </div>
+        <div>
+            {{ with .Site.RegularPages.Next . }}
+                <a href="{{ .RelPermalink }}">Next: {{ .Title }}</a>
+            {{ end }}
+        </div>
+    </div>
+    {{ if .Params.toc }}
+        <!-- Table of contents -->
+        <div id="fm-toc" class='z-40 max-h-80 overflow-scroll hidden lg:block border-y border-slate-300 dark:border-slate-500 fixed top-16 lg:top-52 inset-x-0 lg:left-3/4 {{ $.Scratch.Get "bg2Color" }} {{ $.Scratch.Get "textColor" }} p-4 w-full lg:w-96 lg:shadow-md lg:rounded-md'>
+            <div class="mb-4 text-xl">Table of contents</div>
+            {{ .TableOfContents }}
+        </div>
+        <!-- toc button -->
+        <div class='z-50 lg:hidden fixed bottom-20 right-4 inline-flex items-center justify-center p-2 rounded {{ $.Scratch.Get "bg2Color" }}'>
+            <button id="fm-toc-button" type="button">
+                <span class="sr-only">Open main menu</span>
+                {{ partial "svg/menu.svg" (dict "class" ($.Scratch.Get "svgClass"))}}
+            </button>
+        </div>
+    {{ end }}
+{{ end }}
+
+{{ define "breadcrumb" }}
+    {{ if .p }}
+        {{ template "breadcrumb" (dict "p" .p.Parent ) }}
+        {{ if .p.IsHome }}
+            <a href="/">Home</a>
+        {{ else }}
+            <span>></span>
+            <a href="{{ .p.RelPermalink }}">{{ .p.Title }}</a>
+        {{ end }}
+    {{ end }}
+{{ end }}
+
+{{ define "page_script" }}
+    {{ with resources.Get "output/toc.min.js" }}
+        <script type="text/javascript" src='{{ .RelPermalink }}'></script>
+    {{ end }}
+{{ end }}

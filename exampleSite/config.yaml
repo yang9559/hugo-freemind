@@ -1,0 +1,45 @@
+baseURL: https://yyycode.github.io/freemind
+languageCode: en-us
+title: Freemind
+theme: freemind
+copyright: '&#xA9; 2021 Bruce Powered by&nbsp;<a target="_blank" href="https://gohugo.io/">Hugo</a> & <a target="_blank" href="https://tailwindcss.com/">Tailwind CSS</a> & <a href="https://github.com/yyycode/hugo-freemind" target="_blank">Freemind</a>'
+paginate: 1
+outputs:
+  home:
+    - HTML
+    - JSON
+
+params:
+  author: Bruce
+  description: Welcome to Freemind!
+  avatar: images/avatar.jpeg
+  search: true
+  customCss:
+    - css/custom.css
+  social:
+    - name: github
+      url: https://github.com/yyycode
+    - name: wechat
+      url: /about
+menu:
+  main:
+    - name: Home
+      identifier: home
+      url: /
+      weight: 1
+    - name: Posts
+      identifier: posts
+      url: /posts/
+      weight: 2
+    - name: Categories
+      identifier: categories
+      url: /categories/
+      weight: 3
+    - name: Tags
+      identifier: tags
+      url: /tags/
+      weight: 4
+    - name: About
+      identifier: about
+      url: /about/
+      weight: 5

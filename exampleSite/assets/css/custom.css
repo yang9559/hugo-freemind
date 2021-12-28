@@ -1,0 +1,6 @@
+img[alt=wechat-qrcode] {
+    width: 300px;
+    margin: 0 auto;
+    border: 1px dashed #ccc;
+    padding: 4px;
+}

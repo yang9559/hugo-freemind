@@ -1,0 +1,25 @@
+{{ define "main" }}
+<div class="mt-40 lg:mt-72 text-center space-y-10">
+    {{ if .Site.Params.avatar }}
+        <img class="w-36 h-36 lg:w-48 lg:h-48 mx-auto shadow-md rounded-full" src="{{ .Site.Params.avatar | relURL }}" />
+    {{ end }}
+    <div>
+        <p class="text-xl">{{ .Site.Params.author }}</p>
+        <span id="fm-description" data-description="{{ .Site.Params.description }}" class="block h-6"></span>
+    </div>
+    <div class="flex justify-center space-x-2">
+        {{ range .Site.Params.social }}
+        <a target="_blank" href="{{ .url }}">
+            {{ partial (printf "svg/%s.svg" .name) (dict "class" "w-10 h-10 rounded-full hover:shadow-md dark:bg-white")}}
+        </a>
+        {{ end }}
+    </div>
+</div>
+{{ end }}
+{{ define "page_script" }}
+    {{ if .Site.Params.description }}
+        {{ with resources.Get "output/description.min.js" }}
+            <script type="text/javascript" src='{{ .RelPermalink }}'></script>
+        {{ end }}
+    {{ end }}
+{{ end }}
