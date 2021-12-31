@@ -11,12 +11,14 @@ if (
   // document.documentElement.classList.add('dark')
   lightButton.classList.remove("hidden");
   darkButton.classList.add("hidden");
+  localStorage.theme = "dark";
   lightMobileButton.classList.remove("hidden");
   darkMobileButton.classList.add("hidden");
 } else {
   // document.documentElement.classList.remove('dark')
   lightButton.classList.add("hidden");
   darkButton.classList.remove("hidden");
+  localStorage.theme = "light";
   lightMobileButton.classList.add("hidden");
   darkMobileButton.classList.remove("hidden");
 }

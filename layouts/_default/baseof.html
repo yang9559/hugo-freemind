@@ -29,6 +29,9 @@
             {{ end }}
         </div>
         {{- block "page_script" . }}{{- end }}
-        {{- partial "script.html" . -}}
+        {{- partialCached "script.html" . -}}
+        {{ if .Site.GoogleAnalytics }}
+            {{ template "_internal/google_analytics.html" . }}
+        {{ end }}
     </body>
 </html>
